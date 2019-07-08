@@ -5,12 +5,16 @@ data "aws_iam_policy_document" "role-assume-pol" {
       type = "Service"
       identifiers = ["ecs-tasks.amazonaws.com"]
     }
+    principals {
+      type = "AWS"
+      identifiers = ["arn:aws:iam::490423075530:user/jackchao"]
+    }
     effect = "Allow"
   }
 }
 
 resource "aws_iam_role" "s3-interact-role" {
-  name = "s3-interact"
+  name = "${var.project-name}-s3-interact"
   assume_role_policy = data.aws_iam_policy_document.role-assume-pol.json
   tags = local.common_aws_tags
 }
@@ -26,7 +30,6 @@ data "aws_iam_policy_document" "role-pol" {
       "s3:GetObjectVersion"
     ]
     resources = ["arn:aws:s3:::${aws_s3_bucket.dest-bucket.id}/*"]
-
   }
 }
 

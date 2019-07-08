@@ -7,3 +7,6 @@ variable "tf-src"{
     default = "https://github.com/eul721/itglue-assessment"
 }
 
+variable "project-name"{
+    default = "itglue-assessment"
+}
