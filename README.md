@@ -27,6 +27,8 @@
 4. Test the app and verify it works. At first, it may still show `503 Service Unavailable` because the tasks still needed to be registered as targets on the load balancer. **Give this 2 minutes.**
 5. To make updates, navigate to `/app` folder. Make appropriate changes to `app.js` or `Dockerfile`, then execute `deploy-script.sh`. It will take up to 2 minutes for the live app to reflect those changes.
 
+You can run `terraform state list` in `/infra` folder to see exactly what AWS resources have been created. Subsequently, running `terraform state show <rsc_id>` (where rsc_id is the id listed in the previous command) shows you details about the created AWS resources
+
 # Cleanup
 
 To cleanup the app & stack, you will need to first empty the bucket. Use this command
@@ -42,4 +44,4 @@ Then, you can clean-up the stack. In `/infra` folder, execute
 ```
 terraform destroy -var 'vpc-id=<vpc_id>'
 ```
-where <vpc_id> is the id of your VPC w/o brackets. This can take some time. 
+where <vpc_id> is the id of your VPC w/o brackets. This can take up to 10 mins as Terraform needs to remove a few gateway resources in vpc.  
