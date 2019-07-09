@@ -25,7 +25,7 @@ const S3_BUCKET = process.env.S3_BUCKET_LOCATION;
         <body>
           <form action="/upload" method="post" enctype="multipart/form-data">
             <label for="req_file">
-              Provide your file here
+              Provide your file here.
             </label>
             <input type="file" name="req_file" id="req_file" />
             <br/>

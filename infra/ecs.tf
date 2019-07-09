@@ -44,12 +44,16 @@ resource "aws_ecs_task_definition" "ecs-task-definition" {
   execution_role_arn = aws_iam_role.ecs-task-execution-role.arn
   cpu = 256
   memory = 512
-  depends_on = [local_file.templated_task_definition]
-  container_definitions = "${file("out/ecs-task-definition.json")}"
+  container_definitions = data.template_file.task-definition.rendered
 }
 
 resource "aws_ecs_service" "app-ecs-service" {
-  depends_on = [aws_iam_role.s3-interact-role,aws_ecs_task_definition.ecs-task-definition]
+  depends_on = [
+    aws_iam_role.s3-interact-role,
+    aws_ecs_task_definition.ecs-task-definition,
+    aws_lb.public-to-ecs-alb,
+    aws_lb_listener.public-to-ecs-alb-app-tg
+    ]
   name = "${var.project-name}"
   cluster = aws_ecs_cluster.ecs-cluster.id
   launch_type = "FARGATE"
