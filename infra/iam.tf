@@ -39,3 +39,28 @@ resource "aws_iam_role_policy" "s3-interact-role-policy" {
   policy = data.aws_iam_policy_document.role-pol.json
 
 }
+
+data "aws_iam_policy_document" "ecs-task-execution-role" {
+  statement {
+    sid = "bucketInteractionPolicy"
+    effect = "Allow"
+    actions = [
+      "s3:PutObject",
+      "s3:GetObject",
+      "s3:PutObjectTagging",
+      "s3:GetObjectVersion"
+    ]
+    resources = ["arn:aws:s3:::${aws_s3_bucket.dest-bucket.id}/*"]
+  }
+}
+
+resource "aws_iam_role" "ecs-task-execution-role" {
+  name = "${var.project-name}-task-execution"
+  assume_role_policy = data.aws_iam_policy_document.role-assume-pol.json
+  tags = local.common_aws_tags
+}
+
+resource "aws_iam_role_policy_attachment" "ecs-task-execution-role-policy-attach" {
+  role = aws_iam_role.ecs-task-execution-role.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+}

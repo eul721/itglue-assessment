@@ -8,5 +8,9 @@ variable "tf-src"{
 }
 
 variable "project-name"{
-    default = "itglue-assessment"
+    default = "itglue-assessment-new"
+}
+
+variable "vpc-id" {
+    default = "vpc-0008652b23e4d7f10"
 }

@@ -1,0 +1,24 @@
+{
+  "containerDefinitions": [
+    {
+      "name": "app",
+      "image": "",
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 8081,
+          "hostPort": 8081,
+          "protocol": "tcp"
+        }
+      ]
+    }
+  ],
+  "cpu": "128",
+  "executionRoleArn": "role",
+  "family": "fargate-task-definition",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": [
+    "FARGATE"
+  ]
+
+}

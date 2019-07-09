@@ -1,0 +1,20 @@
+[
+  {
+    "name": "app",
+    "image": "490423075530.dkr.ecr.us-east-1.amazonaws.com/itglue-assessment-new-ecr-repo:latest",
+    "essential": true,
+    "environment": [
+      {
+        "name": "S3_BUCKET_LOCATION",
+        "value": "itglue-assessment-new-dest-bucket-340rofeyou4xjlg"
+      }
+    ],
+    "portMappings": [
+      {
+        "containerPort": 8080,
+        "hostPort": 8080,
+        "protocol": "tcp"
+      }
+    ]
+  }
+]
